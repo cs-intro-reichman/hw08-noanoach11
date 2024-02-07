@@ -129,7 +129,7 @@ class PlayList {
     public void remove(int i) {
         if(!(size== 0 || i<0 || i>maxSize)){
             for(int t=i;t<size;t++){
-                tracks[t]=tracks[i+1];
+                tracks[t]=tracks[t+1];
             }
         }
         this.size=size-1;
@@ -197,7 +197,6 @@ class PlayList {
                 minValue = i;
             }
         }
-
         return minValue;
     }
 
@@ -214,6 +213,20 @@ class PlayList {
     public void sortedInPlace() {
         // Uses the selection sort algorithm,  
         // calling the minIndex method in each iteration.
+        for (int i = 0; i < size - 1; i++) {
+            // Find the index of the minimum duration track starting from index i
+            int minIndex = i;
+            for (int j = i + 1; j < size; j++) {
+                if (tracks[j].getDuration() < tracks[minIndex].getDuration()) {
+                    minIndex = j;
+                }
+            }
+            // Swap tracks at index i and minIndex
+            Track temp = tracks[minIndex];
+            tracks[minIndex] = tracks[i];
+            tracks[i] = temp;
+
+        }
         
     }
 }
